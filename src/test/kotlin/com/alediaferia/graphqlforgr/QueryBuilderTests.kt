@@ -1,4 +1,4 @@
-package com.alediaferia.graphql
+package com.alediaferia.graphqlforgr
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

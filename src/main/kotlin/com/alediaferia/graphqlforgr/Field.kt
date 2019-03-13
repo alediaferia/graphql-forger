@@ -1,4 +1,4 @@
-package com.alediaferia.graphql
+package com.alediaferia.graphqlforgr
 
 import java.lang.StringBuilder
 

@@ -1,4 +1,4 @@
-package com.alediaferia.graphql
+package com.alediaferia.graphqlforgr
 
 class Arg {
     var name: String? = null

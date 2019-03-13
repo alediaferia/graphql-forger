@@ -1,4 +1,7 @@
-package com.alediaferia.graphql
+package com.alediaferia.graphqlforgr.dsl
+
+import com.alediaferia.graphqlforgr.Field
+import com.alediaferia.graphqlforgr.Query
 
 operator fun String.invoke(block: Field.Builder.() -> Unit): Field.Builder {
     val builder = Field.Builder()
@@ -8,12 +11,12 @@ operator fun String.invoke(block: Field.Builder.() -> Unit): Field.Builder {
 
 inline operator fun <reified T> String.invoke(vararg args: Pair<String, T>, block: Field.Builder.() -> Unit): Field.Builder {
     val builder = Field.Builder().withName(this)
-    for (arg in args) {
+    for (arg in args)
         when {
             arg.second is String -> builder.withArg(arg.first, arg.second as String)
             arg.second is Int -> builder.withArg(arg.first, arg.second as Int)
         }
-    }
+
     builder.block()
     return builder
 }

@@ -1,4 +1,4 @@
-# GraphQL Forger
+# GraphQLForgr
 
 A simple and fast GraphQL query builder written in Kotlin
 
