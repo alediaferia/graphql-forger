@@ -9,7 +9,7 @@ class QueryBuilderTests {
         val builder = Query.Builder()
         val queryName = "Aname"
 
-        assertEquals(Query().apply { name = queryName }.name, (builder withName queryName).build().name)
+        assertEquals(Query().apply { name = queryName }.name, (builder.withName(queryName)).build().name)
     }
 
     @Test

@@ -20,7 +20,12 @@ class Query {
             return this
         }
 
-        infix fun withName(name: String): Builder {
+        fun withRootField(field: Field): Query.Builder {
+            rootField = field
+            return this
+        }
+
+        fun withName(name: String): Builder {
             this.name = name
             return this
         }

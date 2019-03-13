@@ -36,7 +36,6 @@ class Field {
             val fieldBuilder = Field.Builder().withName(name)
             fieldBuilder.apply(block)
             selectedFields.add(fieldBuilder.build())
-            selectedFields.find { it != null }
             return this
         }
 
