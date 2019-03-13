@@ -6,6 +6,18 @@ operator fun String.invoke(block: Field.Builder.() -> Unit): Field.Builder {
     return builder.withName(this)
 }
 
+inline operator fun <reified T> String.invoke(vararg args: Pair<String, T>, block: Field.Builder.() -> Unit): Field.Builder {
+    val builder = Field.Builder().withName(this)
+    for (arg in args) {
+        when {
+            arg.second is String -> builder.withArg(arg.first, arg.second as String)
+            arg.second is Int -> builder.withArg(arg.first, arg.second as Int)
+        }
+    }
+    builder.block()
+    return builder
+}
+
 infix fun Field.Builder.select(name: String) = selectField(name)
 
 inline fun Field.Builder.select(name: String, block: Field.Builder.() -> Unit): Field.Builder {

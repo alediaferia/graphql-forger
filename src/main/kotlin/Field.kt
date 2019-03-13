@@ -27,6 +27,16 @@ class Field {
             return this
         }
 
+        fun withArg(name: String, value: Int): Builder {
+            val arg = Arg()
+            arg.name = name
+            arg.value = IntValue(value)
+
+            args.add(arg)
+
+            return this
+        }
+
         fun selectField(name: String): Builder {
             selectedFields.add(Field().apply { this.name = name })
             return this

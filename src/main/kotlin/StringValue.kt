@@ -1,5 +1,5 @@
 package com.alediaferia.graphql
 
-class StringValue(val value: String?) : Value() {
+class StringValue(value: String) : Value<String>(value) {
     override fun asString(): String = "\"$value\""
 }

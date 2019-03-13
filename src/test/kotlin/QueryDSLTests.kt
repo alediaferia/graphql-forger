@@ -7,7 +7,7 @@ class QueryDSLTests {
     @Test
     fun `it has an awesome DSL`() {
         val q = query("theQuery") {
-            "allUsers" {
+            "allUsers"("type" to "users", "limit" to 10) {
                 select("name")
                 select("address") {
                     select("street")
@@ -18,7 +18,7 @@ class QueryDSLTests {
 
         val expectedResult = """
             query theQuery {
-                allUsers {
+                allUsers(type: "users", limit: 10) {
                     name
                     address {
                         street
