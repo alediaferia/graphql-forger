@@ -18,21 +18,37 @@ class Field {
         }
 
         fun withArg(name: String, value: String): Builder {
-            val arg = Arg()
-            arg.name = name
-            arg.value = StringValue(value)
-
-            args.add(arg)
+            args.add(Arg().apply {
+                this.name = name
+                this.value = StringValue(value)
+            })
 
             return this
         }
 
         fun withArg(name: String, value: Int): Builder {
-            val arg = Arg()
-            arg.name = name
-            arg.value = IntValue(value)
+            args.add(Arg().apply {
+                this.name = name
+                this.value = IntValue(value)
+            })
 
-            args.add(arg)
+            return this
+        }
+
+        fun withArg(name: String, value: Float): Builder {
+            args.add(Arg().apply {
+                this.name = name
+                this.value = FloatValue(value)
+            })
+
+            return this
+        }
+
+        fun withArg(name: String, value: Boolean): Builder {
+            args.add(Arg().apply {
+                this.name = name
+                this.value = BooleanValue(value)
+            })
 
             return this
         }

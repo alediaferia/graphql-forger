@@ -9,23 +9,32 @@ operator fun String.invoke(block: Field.Builder.() -> Unit): Field.Builder {
     return builder.withName(this)
 }
 
-inline operator fun <reified T> String.invoke(vararg args: Pair<String, T>, block: Field.Builder.() -> Unit): Field.Builder {
+operator fun <T> String.invoke(vararg args: Pair<String, T>, block: (Field.Builder.() -> Unit)? = null): Field.Builder {
     val builder = Field.Builder().withName(this)
     for (arg in args)
         when {
             arg.second is String -> builder.withArg(arg.first, arg.second as String)
             arg.second is Int -> builder.withArg(arg.first, arg.second as Int)
+            arg.second is Float -> builder.withArg(arg.first, arg.second as Float)
+            arg.second is Boolean -> builder.withArg(arg.first, arg.second as Boolean)
+            else -> throw IllegalArgumentException("Unsupported argument type for ${arg.first}: ${arg.second}")
         }
 
-    builder.block()
+    if (block != null)
+        builder.block()
     return builder
 }
 
-infix fun Field.Builder.select(name: String) = selectField(name)
+fun Field.Builder.select(name: String) = selectField(name)
 
 inline fun Field.Builder.select(name: String, block: Field.Builder.() -> Unit): Field.Builder {
     val fieldBuilder = Field.Builder().withName(name)
     fieldBuilder.block()
+    selectedFields.add(fieldBuilder.build())
+    return this
+}
+
+fun Field.Builder.select(fieldBuilder: Field.Builder): Field.Builder {
     selectedFields.add(fieldBuilder.build())
     return this
 }

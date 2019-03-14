@@ -2,6 +2,7 @@ package com.alediaferia.graphqlforgr.dsl
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class QueryDSLTests {
     @Test
@@ -10,8 +11,8 @@ class QueryDSLTests {
             "allUsers"("type" to "users", "limit" to 10) {
                 select("name")
                 select("address") {
-                    select("street")
                     select("city")
+                    select("street"("postCode" to true))
                 }
             }
         }
@@ -21,8 +22,8 @@ class QueryDSLTests {
                 allUsers(type: "users", limit: 10) {
                     name
                     address {
-                        street
                         city
+                        street(postCode: true)
                     }
                 }
             }
@@ -30,5 +31,14 @@ class QueryDSLTests {
         val computedQuery = q.toString()
         println(computedQuery)
         assertEquals(expectedResult, computedQuery)
+    }
+
+    @Test
+    fun `select - raises for unsupported args`() {
+        assertThrows<IllegalArgumentException> {
+            query("hello") {
+                "field"("type" to mapOf<String, String>())
+            }
+        }
     }
 }
